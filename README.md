@@ -8,4 +8,14 @@ jupyter-notebook
 
 pip uninstall pyzmq 再执行 pip install pyzmq==19.0.2 修改jupyter-notebook通信问题
 
+# 国内镜像源
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 解决 Requirement already satisfied: keras
+pip install --target=d:\anaconda3\envs\ai\lib\site-packages keras
+
+# 解决 Could not load dynamic library 'cudart64_110.dll'; dlerror:cudart64_110.dll not found
+https://cn.dll-files.com/cudart64_110.dll.html
+下载以后放在C:\Windows\System32
+
 
