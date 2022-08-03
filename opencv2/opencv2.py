@@ -199,7 +199,7 @@ def blurImg():
     plt.show()
 
 
-# 二值化 找轮廓
+# 二值化 找轮廓（检测边缘）
 # 图像的二值化，就是将图像上的像素点的灰度值设置为0或255，也就是将整个图像呈现出明显的只有黑和白的视觉效果。
 def binarizationImg():
     im = cv2.imread('flower.jpg')
