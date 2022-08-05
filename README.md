@@ -44,7 +44,7 @@ Boobs
 
 ## yolov5图像识别步骤
 
-### 图片打标 
+### 一、图片打标 
 ##### 1、安装打标工具  
 ``` pip install labelImg ```  
 ##### 2、命令行运行工具  
@@ -54,27 +54,27 @@ Boobs
 注意右边选择"YOLO"，最后导出的文件才是yolov支持的txt格式  
 
 ##### 3、保存标签文件  
-![打标存储目录](./yolov/labelme/save_dir.png)
+![打标存储目录](./yolov/labelme/save_dir.png)  
 存储目录一般命名为"labels"  
 
-### 划分训练集和测试集
+### 二、划分训练集和测试集
 ##### 1、修改 yolov/labelme/gen_train_val_txt.py文件
 ![划分测试集和训练集](./yolov/labelme/cfg_train_val.png) 
 input_path：原始图片目录  
 output_path：训练集和测试集输出路径  
-txt_path：打标文件路径  
+txt_path：上一步打标文件路径  
 
 ##### 2、运行脚本生成train.txt和val.txt  
 ```python gen_train_val_txt.py```  
 
 ![查看测试集和训练集](./yolov/labelme/gen_train_val.png)
 
-### 开始训练
+### 三、开始训练
 ##### 1、yolov配置
 ![yolov配置](./yolov/labelme/cfg_yolov.png)
 path：打标文件目录  
-train：生成的训练集文件或目录  
-val：生成的测试集文件或目录  
+train：上一步生成的训练集文件  
+val：上一步生成的测试集文件
 test：不需要配置
 
 ##### 2、训练文件配置
@@ -89,11 +89,11 @@ batch-size：每一轮处理的图片数，越大训练越快但耗费内存越�
 ##### 4、查看训练准确性  
 ![查看训练结果](./yolov/labelme/train_result.png)  
 
-### 验证结果
-##### 1、验证文件配置
+### 四、验证结果
+##### 1、验证配置
 ![yolov验证配置](./yolov/labelme/cfg_yolov_detect.png)
 weight：这里需要配置刚训练出的模型，选best.pt  
-source：一般在命令行输入图片路径，也可以填写配置，为0代表用摄像头  
+source：一般在命令行输入图片路径，也可以填写在配置里，为0代表用摄像头  
 
 ##### 2、在项目目录下执行  
 ```python detect.py --source ..\VOC2007\images\000021.jpg```  
@@ -102,5 +102,5 @@ source：一般在命令行输入图片路径，也可以填写配置，为0代�
 
 ##### 3、查看验证结果  
 ![yolov验证结果](./yolov/labelme/show_detect.png)  
-结果并不准确，主要是训练的模型不精确度不高，训练时候可以调高epochs，如果还是不准确那就多打一些标签，再重新训练模型 
+结果并不准确，主要是训练的模型不精确度不高，训练时候可以调高轮数epochs，如果还是不准确使用labelme多打一些标签，再重新训练模型 
 
