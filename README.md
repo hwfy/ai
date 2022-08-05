@@ -4,12 +4,13 @@ conda info -e  查看所有环境
 conda create -n name python==3.7  创建环境  
 conda activate name 激活环境  
 
+# python网页版开发环境，相对于IDE来说，它可以单独执行某段代码
 conda install jupyter  
 jupyter-notebook  
 
 pip uninstall pyzmq 再执行 pip install pyzmq==19.0.2 修改jupyter-notebook通信问题
 
-## 国内镜像源
+## 配置国内镜像源，解决pip安装缓慢问题
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 ## 解决 Requirement already satisfied: keras
@@ -36,10 +37,70 @@ Boobs
 
 ## 图像识别任务
 分类：属于什么类别  
-定位：左上角右上角坐标  
+定位：左上角右下角坐标  
 语义分割：将像素按照图像中表达含义的不同进行分割，识别像素点轮廓，不同类别用不同颜色区分  
-检测模型：  
-swin transformer：新的算法，类似yolov5  
-SegNet：全卷积网络，常用于场景理解  
-U-Net：全卷积网络，常用于医学图像分割  
-OCR：光学文字识别，常用于提取图片文字、财务对账、支票检查  
+模型检测网络：swin transformer新的算法、SegNet常用于场景理解、U-Net常用于医学图像分割、OCR常用于提取图片文字、财务对账、支票检查等
+
+
+## yolov5图像识别步骤
+
+### 图片打标 
+##### 1、安装打标工具  
+``` pip install labelImg ```  
+##### 2、命令行运行工具  
+```  labelimg ```  
+
+![打标界面](./yolov/labelme/apply.png)
+注意右边选择"YOLO"，最后导出的文件才是yolov支持的txt格式  
+
+##### 3、保存标签文件  
+![打标存储目录](./yolov/labelme/save_dir.png)
+存储目录一般命名为"labels"  
+
+### 划分训练集和测试集
+##### 1、修改 yolov/labelme/gen_train_val_txt.py文件
+![划分测试集和训练集](./yolov/labelme/cfg_train_val.png) 
+input_path：原始图片目录  
+output_path：训练集和测试集输出路径  
+txt_path：打标文件路径  
+
+##### 2、运行脚本生成train.txt和val.txt  
+```python gen_train_val_txt.py```  
+
+![查看测试集和训练集](./yolov/labelme/gen_train_val.png)
+
+### 开始训练
+##### 1、yolov配置
+![yolov配置](./yolov/labelme/cfg_yolov.png)
+path：打标文件目录  
+train：生成的训练集文件或目录  
+val：生成的测试集文件或目录  
+test：不需要配置
+
+##### 2、训练文件配置
+![yolov训练配置](./yolov/labelme/cfg_yolov_train.png)
+cfg：引入官方模型文件  
+epochs：训练轮数，有GPU情况下设置300、100都行，不然设置几十即可，为了速度而忽略模型准确性，我设置10  
+batch-size：每一轮处理的图片数，越大训练越快但耗费内存越高，有时候会提示：内存不足，就要调小点，我设置8  
+
+##### 3、在项目目录下执行  
+```python train.py```  
+
+##### 4、查看训练准确性  
+![查看训练结果](./yolov/labelme/train_result.png)  
+
+### 验证结果
+##### 1、验证文件配置
+![yolov验证配置](./yolov/labelme/cfg_yolov_detect.png)
+weight：这里需要配置刚训练出的模型，选best.pt  
+source：一般在命令行输入图片路径，也可以填写配置，为0代表用摄像头  
+
+##### 2、在项目目录下执行  
+```python detect.py --source ..\VOC2007\images\000021.jpg```  
+
+![yolov验证](./yolov/labelme/run_detect.png)
+
+##### 3、查看验证结果  
+![yolov验证](./yolov/labelme/show_detect.png)  
+结果并不准确，主要是训练的模型不精确度不高，训练时候可以调高epochs，如果还是不准确那就多打一些标签，再重新训练模型 
+
