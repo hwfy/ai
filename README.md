@@ -74,7 +74,7 @@ txt_path：上一步打标文件路径
 ![yolov配置](https://raw.githubusercontent.com/hwfy/ai/master/yolov/labelme/cfg_yolov.png)
 path：打标文件目录  
 train：上一步生成的训练集文件  
-val：上一步生成的测试集文件
+val：上一步生成的测试集文件  
 test：不需要配置
 
 ##### 2、训练文件配置
