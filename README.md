@@ -101,6 +101,6 @@ source：一般在命令行输入图片路径，也可以填写配置，为0代�
 ![yolov验证](./yolov/labelme/run_detect.png)
 
 ##### 3、查看验证结果  
-![yolov验证](./yolov/labelme/show_detect.png)  
+![yolov验证结果](./yolov/labelme/show_detect.png)  
 结果并不准确，主要是训练的模型不精确度不高，训练时候可以调高epochs，如果还是不准确那就多打一些标签，再重新训练模型 
 
