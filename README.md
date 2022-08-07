@@ -70,15 +70,15 @@ txt_path：上一步打标文件路径
 ![查看测试集和训练集](https://github.com/hwfy/ai/blob/master/yolov/labelme/gen_train_val.png)
 
 ### 三、开始训练
-##### 1、yolov配置 修改data/coco128.yaml
+##### 1、yolov配置，修改data/coco128.yaml
 ![yolov配置](https://github.com/hwfy/ai/blob/master/yolov/labelme/cfg_yolov.png)  
 path：打标文件目录  
 train：上一步生成的训练集文件  
 val：上一步生成的测试集文件  
 test：不需要配置
 
-##### 2、训练文件配置 修改train.py文件
-![yolov训练配置](https://github.com/hwfy/ai/blob/master/yolov/labelme/cfg_yolov_train.png)
+##### 2、训练文件配置，修改train.py文件
+![yolov训练配置](https://github.com/hwfy/ai/blob/master/yolov/labelme/cfg_yolov_train.png)  
 cfg：引入官方模型文件  
 epochs：训练轮数，有GPU情况下设置300、100都行，不然设置几十即可，为了速度而忽略模型准确性，我设置10  
 batch-size：每一轮处理的图片数，越大训练越快但耗费内存越高，有时候会提示：内存不足，就要调小点，我设置8  
@@ -91,7 +91,7 @@ batch-size：每一轮处理的图片数，越大训练越快但耗费内存越�
 在项目路径\runs\train\exp10\results.png
 
 ### 四、验证结果
-##### 1、验证配置 修改detect.py文件
+##### 1、验证配置，修改detect.py文件
 ![yolov验证配置](https://github.com/hwfy/ai/blob/master/yolov/labelme/cfg_yolov_detect.png)  
 weight：这里需要配置刚训练出的模型，选best.pt  
 source：一般在命令行输入图片路径，也可以填写在配置里，为0代表用摄像头  
