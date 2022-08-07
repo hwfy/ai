@@ -104,3 +104,31 @@ source：一般在命令行输入图片路径，也可以填写在配置里，�
 ![yolov验证结果](https://raw.githubusercontent.com/hwfy/ai/master/yolov/labelme/show_detect.png)  
 结果并不准确，主要是训练的模型精确度不高，训练时候可以调高轮数epochs，如果还是不准确使用labelme多打一些标签，再重新训练模型 
 
+### 五、验证视频
+##### 1、下载视频
+①先安装下载工具  
+``` pip install you-get```  
+
+②下载视频  
+```you-get 视频网址```  
+
+③修改视频后缀  
+下载下来是flv格式，将后缀修改为yolov支持的.mp4  
+
+##### 2、导出模型
+```python export.py --imgsz 320```  
+  
+--imgsz：减小到320，可以提高验证速度  
+--weights：可以用自己训练的模型文件  
+
+在命令行下执行如果没有生成onnx文件，那就使用"conda activate 环境名"，切换到安装了yolov的环境下，再执行上面命令，在当前目录下生成了静态模型yolov5s.onnx
+
+
+##### 3、开始验证 
+```python detect.py --weights yolov5s.onnx --view-img --imgsz 320 --source ./七夕节吃掉半个月工资是种什么体验.mp4```  
+
+--weights：上一步生成的验证模型  
+--view-img：可以边预测边显示结果  
+--imgsz：必须和上一步大小对应  
+--source：you-get下载的视频文件
+
